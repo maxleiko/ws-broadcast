@@ -1,0 +1,19 @@
+{
+  "name": "ws-broadcast",
+  "version": "1.0.0",
+  "description": "WebSocket broadcaster",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "ws",
+    "broadcast"
+  ],
+  "author": "Maxime Tricoire <max.tricoire@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^2.0.1",
+    "ws": "^0.6.5"
+  }
+}
