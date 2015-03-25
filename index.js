@@ -25,9 +25,20 @@ wss.on('connection', function (ws) {
 	});
 
 	ws.on('close', function () {
+		// free ws id
 		delete rooms[ws.upgradeReq.url][ws.id];
+		if (Object.keys(rooms[ws.upgradeReq.url]).length === 0) {
+			// free the room if empty
+			delete rooms[ws.upgradeReq.url];
+		}
 	})
 });
+
+setInterval(function () {
+	Object.keys(rooms).forEach(function (id) {
+		console.log(id, Object.keys(rooms[id]).length);
+	});
+}, 5000);
 
 console.log('WebSocket broadcaster listening on 0.0.0.0:'+port);
 
