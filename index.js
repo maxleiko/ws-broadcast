@@ -34,12 +34,6 @@ wss.on('connection', function (ws) {
 	})
 });
 
-setInterval(function () {
-	Object.keys(rooms).forEach(function (id) {
-		console.log(id, Object.keys(rooms[id]).length);
-	});
-}, 5000);
-
 console.log('WebSocket broadcaster listening on 0.0.0.0:'+port);
 
 module.exports = wss;
