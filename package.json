@@ -1,14 +1,20 @@
 {
   "name": "ws-broadcast",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "WebSocket broadcaster",
-  "main": "index.js",
+  "main": "./index.js",
   "scripts": {
     "test": "mocha"
   },
+  "bin": {
+    "wsb": "./bin/cli.js"
+  },
   "keywords": [
     "ws",
-    "broadcast"
+    "broadcast",
+    "web",
+    "socket",
+    "websocket"
   ],
   "author": "Maxime Tricoire <max.tricoire@gmail.com>",
   "license": "MIT",
