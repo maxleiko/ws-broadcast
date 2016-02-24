@@ -10,7 +10,7 @@ var Rooms = React.createClass({
   },
 
   componentDidMount: function () {
-    this.client = new WebSocket('ws://'+window.location.host+':3030');
+    this.client = new WebSocket('ws://'+window.location.hostname+':'+3001);
     this.client.addEventListener('message', function (event) {
       var rooms = JSON.parse(event.data);
       this.setState({ rooms: rooms });

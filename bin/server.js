@@ -24,7 +24,7 @@ if (app.get('env') === 'development') {
   app.use(errorHandler());
 }
 
-var realTimeServer = new ws.Server({ port: process.env.WEB_PORT || 3001 });
+var realTimeServer = new ws.Server({ port: 3001 });
 realTimeServer.on('connection', function (client) {
   client.send(getJSONRooms());
 });
