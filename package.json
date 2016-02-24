@@ -1,13 +1,15 @@
 {
   "name": "ws-broadcast",
-  "version": "2.0.0",
+  "version": "3.0.0-alpha",
   "description": "WebSocket broadcaster",
-  "main": "./index.js",
+  "main": "./lib/WSServer.js",
   "scripts": {
+    "serve": "ENV=development node bin/server.js",
     "test": "mocha"
   },
   "bin": {
-    "wsb": "./bin/cli.js"
+    "wsb": "./bin/cli.js",
+    "wsb-server": "./bin/server.js"
   },
   "keywords": [
     "ws",
@@ -19,7 +21,23 @@
   "author": "Maxime Tricoire <max.tricoire@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bufferutil": "^1.2.1",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "serve-favicon": "^2.3.0",
+    "serve-static": "^1.10.2",
+    "utf-8-validate": "^1.2.1",
     "uuid": "^2.0.1",
-    "ws": "^0.6.5"
+    "ws": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-loader": "^6.2.3",
+    "babel-preset-react": "^6.5.0",
+    "babel-core": "^6.5.2",
+    "eslint-plugin-react": "^4.0.0",
+    "webpack": "^1.12.14"
   }
 }

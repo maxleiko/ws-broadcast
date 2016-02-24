@@ -2,7 +2,7 @@ var WebSocket = require('ws');
 var assert = require('assert');
 
 // start the server
-var Server = require('../index.js');
+var Server = require('../lib/WSServer');
 var server = new Server(9001);
 
 describe('Test ws-broadcast', function () {

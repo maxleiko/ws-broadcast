@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-var WSServer = require('../index');
+var WSServer = require('../lib/WSServer');
 new WSServer(process.argv[2]);
