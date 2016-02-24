@@ -5,7 +5,8 @@
   "main": "./lib/WSServer.js",
   "scripts": {
     "serve": "ENV=development node bin/server.js",
-    "test": "mocha"
+    "test": "mocha",
+    "build": "PROD=true node node_modules/.bin/webpack"
   },
   "bin": {
     "wsb": "./bin/cli.js",
