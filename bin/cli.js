@@ -1,3 +1,10 @@
 #!/usr/bin/env node
-var WSServer = require('../lib/WSServer');
-new WSServer(process.argv[2] || process.env.WS_PORT || process.env.PORT || 9000);
+
+var WebSocket = require('ws');
+var WSServer = require('../lib/wsClientHandler');
+
+var PORT = process.argv[2] || process.env.WS_PORT || process.env.PORT || 9000;
+var wss = new WebSocket.Server({ port: PORT });
+wss.on('connection', function (client) {
+  wsClientHandler(wss, client);
+});

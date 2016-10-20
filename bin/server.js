@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 var express = require('express');
-var ws = require('ws');
+var WebSocket = require('ws');
 var http = require('http');
 var path = require('path');
 
-var WSServer = require('../lib/WSServer');
+var wsClientHandler = require('../lib/wsClientHandler');
 
 var app = express();
 var server = http.createServer(app);
@@ -25,28 +25,32 @@ if (app.get('env') === 'development') {
   app.use(errorHandler());
 }
 
-var wss = new WSServer(parseInt(process.env.WS_PORT, 10) || 9000);
-var realTimeServer = new ws.Server({ server: server });
-realTimeServer.on('connection', function (client) {
-  client.send(getJSONRooms());
-});
-wss.on('update', function () {
-  realTimeServer.clients.forEach(function (client) {
-    if (client && client.readyState === ws.OPEN) {
-      client.send(getJSONRooms());
-    }
-  });
-});
-
-server.listen(app.get('port'), function() {
-  console.log('HTTP server listening at 0.0.0.0:' + app.get('port'));
-});
-
-function getJSONRooms() {
-  var data = wss.wss.clients.reduce(function (prev, curr) {
+var ROOM_WATCHER_URI = '/.__room_watcher__';
+var wss = new WebSocket.Server({ server: server });
+function wssUpdateHandler() {
+  var data = wss.clients.filter(function (client) {
+    // filter UI clients
+    return client.upgradeReq.url !== ROOM_WATCHER_URI;
+  }).reduce(function (prev, curr) {
+    // process data
     var count = prev[curr.upgradeReq.url] || 0;
     prev[curr.upgradeReq.url] = count + 1;
     return prev;
   }, {});
-  return JSON.stringify(data);
+
+  var dataStr = JSON.stringify(data);
+  wss.clients.filter(function (client) {
+    return client.upgradeReq.url === ROOM_WATCHER_URI;
+  }).forEach(function (client) {
+    client.send(dataStr);
+  });
 }
+wss.on('connection', function (client) {
+  if (client.upgradeReq.url !== ROOM_WATCHER_URI) {
+    wsClientHandler(wss, client, wssUpdateHandler);
+  }
+});
+
+server.listen(app.get('port'), function() {
+  console.log('WSBroadcast server listening at 0.0.0.0:' + app.get('port'));
+});
