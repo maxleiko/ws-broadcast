@@ -28,5 +28,7 @@ node_modules
 .lock-wscript
 
 .idea
-dist
-public/script
+public/js
+
+# Yarn
+yarn.lock

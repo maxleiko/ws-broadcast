@@ -4,9 +4,10 @@
   "description": "WebSocket broadcaster",
   "main": "./lib/WSServer.js",
   "scripts": {
-    "serve": "ENV=development node bin/server.js",
+    "serve": "webpack-dev-server --content-base public",
     "test": "mocha",
-    "build": "PROD=true node node_modules/.bin/webpack"
+    "build": "webpack",
+    "start": "ENV=production node bin/server.js"
   },
   "bin": {
     "wsb": "./bin/cli.js",
@@ -25,14 +26,13 @@
     "bufferutil": "^1.2.1",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
-    "morgan": "^1.7.0",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
     "serve-favicon": "^2.3.0",
     "serve-static": "^1.10.2",
     "utf-8-validate": "^1.2.1",
     "uuid": "^2.0.1",
-    "ws": "^1.0.1"
+    "ws": "^1.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.5.2",
@@ -40,6 +40,7 @@
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
     "eslint-plugin-react": "^4.0.0",
-    "webpack": "^1.12.14"
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
   }
 }
