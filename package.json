@@ -1,6 +1,6 @@
 {
   "name": "ws-broadcast",
-  "version": "3.0.0-alpha",
+  "version": "3.0.0",
   "description": "WebSocket broadcaster",
   "main": "./lib/WSServer.js",
   "scripts": {
