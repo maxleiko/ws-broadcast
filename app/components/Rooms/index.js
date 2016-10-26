@@ -7,7 +7,7 @@ const Rooms = React.createClass({
   },
 
   componentDidMount: function() {
-    this.client = new WebSocket('ws://' + window.location.host + '/.__room_watcher__');
+    this.client = new WebSocket(window.location.protocol.replace('http', 'ws') + '//' + window.location.host + '/.__room_watcher__');
     this.client.addEventListener('message', function (event) {
       var rooms = JSON.parse(event.data);
       this.setState({ rooms: rooms });
