@@ -9,9 +9,9 @@ const Rooms = React.createClass({
   componentDidMount: function() {
     var uri = window.location.href.replace('http', 'ws');
     if (!uri.endsWith('/')) {
-      uri += '/';
+      uri = uri + '/';
     }
-    this.client = new WebSocket( + '.__room_watcher__');
+    this.client = new WebSocket(uri + '.__room_watcher__');
     this.client.addEventListener('message', function (event) {
       var rooms = JSON.parse(event.data);
       this.setState({ rooms: rooms });
