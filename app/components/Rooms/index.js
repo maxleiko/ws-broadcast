@@ -7,15 +7,17 @@ const Rooms = React.createClass({
   },
 
   componentDidMount: function() {
+		var self = this;
     var uri = window.location.href.replace('http', 'ws');
     if (!uri.endsWith('/')) {
       uri = uri + '/';
     }
     this.client = new WebSocket(uri + '.__room_watcher__');
-    this.client.addEventListener('message', function (event) {
+
+    this.client.onmessage = function (event) {
       var rooms = JSON.parse(event.data);
-      this.setState({ rooms: rooms });
-    }.bind(this));
+      self.setState({ rooms: rooms });
+    };
   },
 
   componentWillUnmount: function() {

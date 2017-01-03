@@ -1,12 +1,13 @@
 {
   "name": "ws-broadcast",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "WebSocket broadcaster",
   "main": "./lib/WSServer.js",
   "scripts": {
-    "serve": "webpack-dev-server --content-base public",
+    "serve": "webpack-dev-server --open",
     "test": "mocha",
     "build": "webpack",
+		"build-docker": "rm -rf node_modules && npm i --production && docker build -t maxleiko/ws-broadcast .",
     "start": "ENV=production node bin/server.js"
   },
   "bin": {

@@ -27,7 +27,7 @@ if (app.get('env') === 'development') {
 
 var ROOM_WATCHER_URI = '/.__room_watcher__';
 var wss = new WebSocket.Server({ server: server });
-function wssUpdateHandler() {
+function sendStatusToWebClient() {
   var data = wss.clients.filter(function (client) {
     // filter UI clients
     return client.upgradeReq.url !== ROOM_WATCHER_URI;
@@ -47,8 +47,10 @@ function wssUpdateHandler() {
 }
 wss.on('connection', function (client) {
   if (client.upgradeReq.url !== ROOM_WATCHER_URI) {
-    wsClientHandler(wss, client, wssUpdateHandler);
-  }
+    wsClientHandler(wss, client, sendStatusToWebClient);
+  } else {
+		sendStatusToWebClient();
+	}
 });
 
 server.listen(app.get('port'), function() {
