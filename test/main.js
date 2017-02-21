@@ -1,29 +1,34 @@
 var WebSocket = require('ws');
 var assert = require('assert');
 
+var PORT = 38042;
+
 // start the server
-var Server = require('../lib/WSServer');
-var server = new Server(9001);
+var clientHandler = require('../lib/wsClientHandler');
+var server = new WebSocket.Server({ host: 'localhost', port: PORT });
+server.on('connection', function (client) {
+  clientHandler(server, client);
+});
 
 describe('Test ws-broadcast', function () {
 	var c0, c1, c2;
 
 	it('c0 should connect to the server', function (done) {
-		c0 = new WebSocket('ws://localhost:9001');
+		c0 = new WebSocket('ws://localhost:' + PORT);
 		c0.on('open', function () {
 			done();
 		});
 	});
 
 	it('c1 should connect to the server', function (done) {
-		c1 = new WebSocket('ws://localhost:9001');
+		c1 = new WebSocket('ws://localhost:' + PORT);
 		c1.on('open', function () {
 			done();
 		});
 	});
 
 	it('c2 should connect to the server', function (done) {
-		c2 = new WebSocket('ws://localhost:9001');
+		c2 = new WebSocket('ws://localhost:' + PORT);
 		c2.on('open', function () {
 			done();
 		});

@@ -5,10 +5,11 @@
   "main": "./lib/WSServer.js",
   "scripts": {
     "serve": "webpack-dev-server --open",
-    "test": "mocha",
+    "test": "npm run lint && mocha",
     "build": "webpack",
-		"build-docker": "rm -rf node_modules && npm i --production && docker build -t maxleiko/ws-broadcast .",
-    "start": "ENV=production node bin/server.js"
+    "build-docker": "rm -rf node_modules && npm i --production && docker build -t maxleiko/ws-broadcast .",
+    "start": "ENV=production node bin/server.js",
+		"lint": "eslint bin lib test"
   },
   "bin": {
     "wsb": "./bin/cli.js",
@@ -39,8 +40,17 @@
     "babel-loader": "^6.2.3",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
+    "eslint": "^3.16.0",
     "eslint-plugin-react": "^4.0.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ]
   }
 }

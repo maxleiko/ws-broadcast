@@ -1,4 +1,5 @@
-var ReactDOM = require('react-dom');
-var Rooms = require('./components/Rooms');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Rooms = require('./Rooms');
 
 ReactDOM.render(<Rooms />, document.getElementById('rooms'));
