@@ -32,3 +32,6 @@ public/js
 
 # Yarn
 yarn.lock
+
+# Artillery
+artillery_**.json

@@ -1,0 +1,20 @@
+config:
+  target: "ws://172.17.0.2:3000/another"
+  phases:
+      duration: 5
+      arrivalCount: 25
+      name: "Low load phase"
+    -
+      duration: 5
+      arrivalRate: 50
+      name: "Medium load phase"
+    -
+      duration: 5
+      arrivalRate: 100
+      name: "High load phase"
+scenarios:
+  -
+    engine: "ws"
+    flow:
+      -
+        send: "hello world"

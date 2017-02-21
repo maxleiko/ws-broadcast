@@ -3,7 +3,10 @@ const React = require('react');
 const Rooms = React.createClass({
 
 	getInitialState: function () {
-		return { rooms: [] };
+		return {
+			connections: 0,
+			rooms: {}
+		};
 	},
 
 	componentDidMount: function () {
@@ -15,8 +18,7 @@ const Rooms = React.createClass({
 		this.client = new WebSocket(uri + '.__room_watcher__');
 
 		this.client.onmessage = function (event) {
-			var rooms = JSON.parse(event.data);
-			self.setState({ rooms: rooms });
+			self.setState(JSON.parse(event.data));
 		};
 	},
 
@@ -27,26 +29,38 @@ const Rooms = React.createClass({
 	},
 
 	render: function () {
+		var state = this.state;
 		var keys = Object.keys(this.state.rooms);
 
+		var content = null;
 		if (keys.length === 0) {
-			return (
+			content = (
 				<div className="list-group-item">
 					<em>No client connected currently</em>
+				</div>
+			);
+		} else {
+			content = (
+				<div>
+					{keys.map(function(name) {
+						return (
+							<li key={name} className="list-group-item">
+								<span>{name}</span>
+								<span className="badge">{state.rooms[name]}</span>
+							</li>
+						);
+					})}
 				</div>
 			);
 		}
 
 		return (
-			<div>
-				{keys.map(function(name) {
-					return (
-						<li key={name} className="list-group-item">
-							<span>{name}</span>
-							<span className="badge">{this.state.rooms[name]}</span>
-						</li>
-					);
-				})}
+			<div className="panel panel-default">
+				<div className="panel-heading">
+					<span>Rooms</span>
+					<em className="pull-right">Connections: {state.connections} / Rooms count: {keys.length} </em>
+				</div>
+				<div className="list-group">{content}</div>
 			</div>
 		);
 	}
