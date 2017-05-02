@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+var debug = require('debug')('wsb-server');
 var express = require('express');
 var WebSocket = require('ws');
 var http = require('http');
@@ -45,6 +46,7 @@ function sendStatusToWebClient() {
 
 wss.on('connection', function (client) {
 	if (client.upgradeReq.url !== ROOM_WATCHER_URI) {
+		debug(' + client %s', client.upgradeReq.url);
 		// WebSocket broadcaster client
 		// console.log(' + %s', client.upgradeReq.url);
 		wsState.connections = wsState.connections + 1;
@@ -52,6 +54,7 @@ wss.on('connection', function (client) {
 		wsState.rooms[client.upgradeReq.url] = wsState.rooms[client.upgradeReq.url] + 1;
 
 		client.on('close', function () {
+			debug(' - client %s', client.upgradeReq.url);
 			// console.log(' - %s', client.upgradeReq.url);
 			wsState.connections = wsState.connections - 1;
 			wsState.rooms[client.upgradeReq.url] = wsState.rooms[client.upgradeReq.url] - 1;
@@ -62,7 +65,6 @@ wss.on('connection', function (client) {
 		});
 
 		wsClientHandler(wss, client, sendStatusToWebClient);
-
 	}
 	sendStatusToWebClient();
 });

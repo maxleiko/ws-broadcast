@@ -9,7 +9,7 @@
     "build": "webpack",
     "build-docker": "rm -rf node_modules && npm i --production && docker build -t maxleiko/ws-broadcast .",
     "start": "ENV=production node bin/server.js",
-		"lint": "eslint bin lib test"
+    "lint": "eslint bin lib test"
   },
   "bin": {
     "wsb": "./bin/cli.js",
@@ -26,6 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "bufferutil": "^1.2.1",
+    "debug": "^2.6.1",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
     "react": "^15.3.2",
@@ -42,6 +43,7 @@
     "babel-preset-react": "^6.5.0",
     "eslint": "^3.16.0",
     "eslint-plugin-react": "^4.0.0",
+    "mocha": "^3.3.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
